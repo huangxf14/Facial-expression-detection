@@ -1,9 +1,8 @@
 function [ output_list ] = decode_conv( y,coef,tail,dist)
-%y is the signal list 
-%coef is the coefficient of conv_code
-%tail means whether to add tail
-%dist is the function of calculate distance
+
+
 tail_num =100;
+
 num=size(coef,1);%num is the efficient of conv_code
 m=size(coef,2)-1;
 k=2^m;%k is amount of the state
