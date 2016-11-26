@@ -41,35 +41,5 @@ errRateHard(errRateHard==0) = 1e-100;
 errRateSoft(errRateSoft==0) = 1e-100;
 plot(Eb_N0, errRateHard);
 plot(Eb_N0, errRateSoft);
-drawnow;
-
-
-% LDPC 2/5
-N = 25920;
-%k = 200;
-k=50;
-%Eb_N0 = -2:.01:0;
-Eb_N0 = -2:.4:0;
-data = randi([0 1],N,1);
-ldpcH = dvbs2ldpc(2/5);
-enc = comm.LDPCEncoder(ldpcH);
-dec = comm.LDPCDecoder(ldpcH);
-dataEnc = step(enc, data);
-modSignal = 2.*dataEnc-1;
-errRate = 0.*Eb_N0;
-tic;
-for iter = 1:length(Eb_N0)
-	hDemod = comm.PSKDemodulator(2,'BitOutput',true,'DecisionMethod','Approximate log-likelihood ratio','Variance', 1/10^(Eb_N0(iter)/10),'PhaseOffset',pi);
-	errRateLocal = 0;
-	parfor t = 1:k
-		y = awgn(modSignal,Eb_N0(iter),'measured');
-		y_decode = step(dec, step(hDemod, y));
-		errRateLocal = errRateLocal + sum(data ~= y_decode);
-	end
-	errRate(iter) = errRateLocal./N./k;
-end
-toc
-errRate(errRate==0) = 1e-100;
-plot(Eb_N0, errRate);
-legend('BPSK','Conv, 1/2, 16bit tailed, hard, QPSK','Conv, 1/2, 16bit tailed, soft, QPSK','LDPC, 2/5, QPSK');
+legend('BPSK','Conv, 1/2, 16bit tailed, hard, QPSK','Conv, 1/2, 16bit tailed, soft, QPSK');
 drawnow;
