@@ -1,7 +1,12 @@
-function [ output_list ] = decode_conv( y,coef,tail,dist)
+function [ output_list ] = decode_conv( y,coef,tail,dist,tail_num )
+%y is the signal list
+%coef is the coefficient of conv_code
+%tail means whether to add tail
+%dist is the function of calculate distance
 
-
+if nargin < 5
 tail_num =100;
+end
 
 num=size(coef,1);%num is the efficient of conv_code
 m=size(coef,2)-1;
