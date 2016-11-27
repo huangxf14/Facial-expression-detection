@@ -1,9 +1,10 @@
-len = 600;
+len = 100000;
 coef = [1,0,1,1;1,1,1,1]; % parameter
 %coef = [1,1,0,1;1,0,1,1;1,1,1,1];
 x = rand(1,len)>0.5;
 x = crc32(x);
-snr = 0:0.2:5;
+snr = 0:0.5:8;
+tail_num=100;
 err_rate1 = zeros(1,length(snr));
 err_rate2 = zeros(1,length(snr));
 err_rate3 = zeros(1,length(snr));
@@ -23,7 +24,6 @@ for iter = 1:length(snr)
         end
     end;
     err_rate1(iter)=err_rate1(iter)/(len/200);        
-    
     y_decode = logical(decode_conv(y,coef,tail,dist2,tail_num));
     for cnt=1:232:length(y_decode)-tail*(size(coef,2)-1)
         if sum(y_decode(cnt:cnt+231)~=crc32(y_decode(cnt:cnt+199)))>0
@@ -31,7 +31,6 @@ for iter = 1:length(snr)
         end
     end;
     err_rate2(iter)=err_rate2(iter)/(len/200);
-    
     tail=true;
     x_encode = complex(encode_conv(x,coef,tail,tail_num)); 
     y = awgn(x_encode.*exp(rand(1,length(x_encode))*2j*pi),snr(iter),'measured');    
@@ -42,7 +41,6 @@ for iter = 1:length(snr)
         end
     end;
     err_rate3(iter)=err_rate3(iter)/(len/200);
-    
     y_decode = logical(decode_conv(y,coef,tail,dist2,tail_num));
    for cnt=1:232:length(y_decode)-tail*(size(coef,2)-1)
         if sum(y_decode(cnt:cnt+231)~=crc32(y_decode(cnt:cnt+199)))>0
@@ -50,10 +48,9 @@ for iter = 1:length(snr)
         end
     end;
     err_rate4(iter)=err_rate4(iter)/(len/200);
-    
-    
 end
 figure
 semilogy(snr,err_rate1,snr,err_rate2,snr,err_rate3,snr,err_rate4);
 legend('tail=false,hard','tail=false,soft','tail=true,hard','tail=true,soft')
 title('snr VS error rate');xlabel('snr/dB');ylabel('error rate');
+saveas(gcf,'Img3_3_1.eps');

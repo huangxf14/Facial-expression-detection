@@ -1,4 +1,4 @@
-function varargout = homework2(varargin)
+function varargout = homework2_rsa(varargin)
 % HOMEWORK2 MATLAB code for homework2.fig
 %      HOMEWORK2, by itself, creates a new HOMEWORK2 or raises the existing
 %      singleton*.
@@ -28,8 +28,8 @@ function varargout = homework2(varargin)
 gui_Singleton = 1;
 gui_State = struct('gui_Name',       mfilename, ...
                    'gui_Singleton',  gui_Singleton, ...
-                   'gui_OpeningFcn', @homework2_OpeningFcn, ...
-                   'gui_OutputFcn',  @homework2_OutputFcn, ...
+                   'gui_OpeningFcn', @homework2_rsa_OpeningFcn, ...
+                   'gui_OutputFcn',  @homework2_rsa_OutputFcn, ...
                    'gui_LayoutFcn',  [] , ...
                    'gui_Callback',   []);
 if nargin && ischar(varargin{1})
@@ -45,7 +45,7 @@ end
 
 
 % --- Executes just before homework2 is made visible.
-function homework2_OpeningFcn(hObject, eventdata, handles, varargin)
+function homework2_rsa_OpeningFcn(hObject, eventdata, handles, varargin)
 % This function has no output args, see OutputFcn.
 % hObject    handle to figure
 % eventdata  reserved - to be defined in a future version of MATLAB
@@ -63,7 +63,7 @@ guidata(hObject, handles);
 init(handles);
 
 % --- Outputs from this function are returned to the command line.
-function varargout = homework2_OutputFcn(hObject, eventdata, handles) 
+function varargout = homework2_rsa_OutputFcn(hObject, eventdata, handles) 
 % varargout  cell array for returning output args (see VARARGOUT);
 % hObject    handle to figure
 % eventdata  reserved - to be defined in a future version of MATLAB
@@ -189,7 +189,7 @@ if encrypt_flag == 1
 	out_data=[];
 	for x=1:len-1:length(trans_data)
 		if (x+len-2<=length(trans_data))
-			out_data = [out_data encrypt_encode([0 trans_data(x:x+len-2)'],key)];
+			out_data = [out_data encrypt_encode_rsa([0 trans_data(x:x+len-2)'],key)];
 		else
 			out_data= [out_data trans_data(x:length(trans_data))'];
 		end;
@@ -206,12 +206,12 @@ temp_data_0 = channel_decode(receive_message,coding_effi,tail,soft_decision);
 %%
 if encrypt_flag == 1
     t0 = clock;
-	load rsa_pub.mat;
+	load rsa.mat;
 	key=rsa(1,:);
 	temp_data_1=[];
 	for x=1:len:length(temp_data_0)
 		if (x+len-1<=length(temp_data_0))
-			edcode=encrypt_decode(temp_data_0(x:x+len-1),key);
+			edcode=encrypt_decode_rsa(temp_data_0(x:x+len-1),key);
 			temp_data_1 = [temp_data_1 edcode(2:len)];
 		else
 			temp_data_1=[temp_data_1 temp_data_0(x:length(temp_data_0))];

@@ -1,4 +1,4 @@
-len = 1000;
+len = 10000000;
 x = (rand(1,len)>0.5).^2;
 snr = 0:0.5:15;
 err_rate1 = zeros(1,length(snr));
