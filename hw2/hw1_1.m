@@ -39,10 +39,24 @@ legend('Symbol','Baseband Waveform','Modulated Waveform');
 drawnow;
 
 figure;
-spectrum = fft(waveformMod);
+spectrumLowPass = zeros(1, 1048513);
+spectrumLowPass(end/2-500.5:end/2+500.5) = 1;
+spectrumLowPass = spectrumLowPass.*sinc(linspace(-5000,5000,1048513));
+spectrum = abs(fft(waveformMod)).^2;
+spectrum = fconv(spectrum, spectrumLowPass);
+spectrum = spectrum((N-0.5).*k+1:(2.*N-0.5).*k+1);
 fRange = 0:Rws./length(spectrum):4000;
-plot(fRange, (abs(spectrum(1:length(fRange)))./max(abs(spectrum))).^2);
-title('Spectrum of Modulated Signal');
+plot(fRange, spectrum(1:length(fRange))./max(spectrum));
+ylim([0,1]);
+title('Power Spectrum of Modulated Signal');
+xlabel('f/Hz');
+drawnow;
+
+figure;
+spectrum = abs(fft(waveformMod)).^2;
+semilogy(fRange, spectrum(1:length(fRange))./max(spectrum));
+ylim([1e-8,1]);
+title('Power Spectrum of Modulated Signal');
 xlabel('f/Hz');
 drawnow;
 
@@ -62,10 +76,13 @@ legend('Sent Waveform', 'Received Waveform');
 drawnow;
 
 figure;
-spectrum = fft(waveformRecv);
+spectrum = abs(fft(waveformRecv)).^2;
+spectrum = fconv(spectrum, spectrumLowPass);
+spectrum = spectrum((N-0.5).*k+1:(2.*N-0.5).*k+1);
 fRange = 0:Rws./length(spectrum):4000;
-plot(fRange, (abs(spectrum(1:length(fRange)))./max(abs(spectrum))).^2);
-title('Spectrum of Received Signal');
+plot(fRange, spectrum(1:length(fRange))./max(spectrum));
+ylim([0,1]);
+title('Power Spectrum of Received Signal');
 xlabel('f/Hz');
 drawnow;
 
