@@ -1,0 +1,57 @@
+\documentclass[UTF8]{ctexart}
+% \usepackage{amsfonts}
+% \usepackage{amsmath}
+% \usepackage{amssymb}
+% \usepackage{amsthm}
+% \usepackage{booktabs}
+\usepackage{courier}
+% \usepackage{float}
+\usepackage{geometry}
+% \usepackage{graphicx}
+% \usepackage{hyperref}
+% \usepackage{listings}
+\geometry{left=2.54cm,right=2.54cm,top=2.18cm,bottom=3.18cm}
+
+\begin{document}
+
+\title{人脸表情识别——中期报告}
+\author{无46\ \ 严靖凯\ \ 2014011179\\ 无46\ \ 王启睿\ \ 2014011179\\ 无46\ \ 黄秀峰\ \ 2014011193}
+\maketitle
+
+\section{概述}
+
+% 最好在里面加一些参考文献吧。
+% 还要加点什么你们看吧~
+
+对于人脸表情识别问题，目前学术界已有了较为充分的研究。对该问题的处理方法，大体可分为传统模式识别和深度学习两类。其中，传统模式识别方式的代表性文章有\cite{}，深度学习方式的代表性文章有\cite{}。【比较一下两类方法的准确率，这个我不太懂，要不麻烦启睿写一下这里……？】
+由于本课程实验给了比较充裕的时间，因此我们考虑对这两种方法都进行一下尝试，一方面是为了验证究竟哪种特征提取与识别方法能获得更好的效果，另一方面也是为了对这些方法都进行练习，以熟悉其方法与技能。
+
+目前，我们着重考虑了两种方法，分别属于深度学习和传统模式时变的范畴，以下将对它们进行详细介绍。
+
+\section{方法一：CNN-VGG7网络特征提取} % 这个标题取什么你们自己改一下
+
+% 这里我想着写了一点，是介绍完理论之后的remark，可以参考我写的意思，当然也可以重新写。
+
+% 我们发现助教所建议的几个数据集上的数据量相对较小，而在FER+数据集上有大量的数据。因此我们选择（原谅她啊 雾）在FER+数据集上先进行一个训练，观察初步的效果。”
+% 我们发现，训练得到的准确率在85%左右，而这与 \cite{?} 中的95%的准确率有不小的差距。
+% 事实上，该准确率很大程度上是受FER+数据集自身所限。其图像……
+
+
+\section{方法二：HOG特征+SVM分类}
+
+% 把从头到尾的理论写一下吧
+% 然后就说具体的HOG特征提取代码还有待完善，还没有能整合起来测试
+
+% 我们已经学习了libSVM的使用，并对libSVM自身的多类分类输出，针对我们的问题进行了改进，使得可以输出样本属于每一类的概率。
+
+\section{进一步的工作}
+
+% 这一块和下一块就麻烦您二位写一下了……
+
+\section{实验心得与体会}
+
+
+\bibliographystyle{unsrt}
+\bibliography{midref}
+
+\end{document}
