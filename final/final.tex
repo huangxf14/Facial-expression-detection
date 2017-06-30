@@ -40,6 +40,7 @@
 根据我们所调研的文献，文章\cite{BarsoumICMI2016}提供的FER+数据集中有较多数据，因此我们选择在FER+数据集上复现文\cite{BarsoumICMI2016}的效果。
 
 \begin{figure}[ht]
+  \centering
   \includegraphics[width=\textwidth]{ferplus.png}
   \caption{测试使用的CNN结构}\label{fig:ferplus}
 \end{figure}
@@ -79,14 +80,16 @@ WLD是Weber Local Descriptor的缩写，是近年提出的重要图像特征之�
 
 \section{实验结果}
 
-\subsection{准确率}
+\subsection{输出样例与准确率}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%
-% - 对于为什么我们得到的准确率在自采和标准上差不多，有什么好的解释吗……我想不出来T^T
-% - 据说是因为我们只使用了自采数据集进行训练
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+我们从训练集中随机均匀地选取100张图片用于测试正确率(其余留作训练数据)，正确率为83\%。
+
+以下展示判决程序运行的样例结果。这里我们将输出形式改为对单个图片进行判决，以便展示结果。如图\ref{fig:result}所示。可见，该图判决为fe(fear)类，这是一次正确的判决。
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.8\textwidth]{result.jpg}
+  \caption{一次运行的输出结果示例。}\label{fig:result}
+\end{figure}
 
 \subsection{错判样例与分析}
 
