@@ -9,7 +9,7 @@ labelcnt=zeros(1,8);
 for x=1:8
     labelcnt(x)=length(find(label==char(x+47)));
 end;
-for filecnt=12:12%length(file)
+for filecnt=2:2%length(file)
     img=imread(['test/公开数据测试集/' file(filecnt).name]);
     lab=floor(rand(1,1)*8);
     min=100000000000000;
